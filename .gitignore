@@ -22,3 +22,6 @@ pnpm-debug.log*
 # vite / vitest cache
 .vite/
 coverage/
+
+# typescript incremental build cache
+*.tsbuildinfo

@@ -216,7 +216,27 @@ npm run typecheck   # 类型检查
 
 ---
 
-## 七、隐私与安全
+## 七、部署到 GitHub Pages（在线访问）
+
+本工具是纯静态应用，可托管到 GitHub Pages 免费在线访问（HTTPS，"选文件夹"功能在线可用）。
+
+**推荐：把 `profiler_an` 目录作为独立仓库根上传**，已内置工作流 `.github/workflows/deploy.yml`：
+
+1. 将本目录作为一个新的 GitHub 仓库根推送（`git init` → `git add .` → push）。
+2. 仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。
+3. 推送到 `main` 分支后自动构建部署，访问 `https://<用户名>.github.io/<仓库名>/`。
+
+> 若放在 monorepo 子目录部署，把工作流移到仓库根的 `.github/workflows/`，并将其中
+> `working-directory` 改为子目录相对路径。
+
+构建产物使用相对路径（`base: "./"`），Web Worker 通过 `import.meta.url` 相对解析，
+因此在带子路径的 Pages 站点下可正常运行。也可用 `./run.sh build` 生成 `dist/` 后部署到
+任意静态托管（内部 GitLab Pages / Nginx / 对象存储等）。
+
+> **合规提醒**：公开发布前请确认代码可对外开放；**切勿提交任何 `.trace` 采集数据**
+> （已在 `.gitignore` 中排除）。工具本身不含 trace 数据，用户在浏览器现场选本地文件。
+
+## 八、隐私与安全
 
 - 所有数据在浏览器本地处理，**不上传、无数据外传的网络请求**。
 - 解析器为纯正则/状态机，**不对 trace 内容执行 eval 或动态代码**。
