@@ -1,0 +1,515 @@
+:root {
+  --bg: #0f1115;
+  --panel: #1a1d24;
+  --border: #2b2f3a;
+  --text: #e6e8ec;
+  --muted: #9aa0aa;
+  --accent: #4f8cff;
+  --warn: #e5533d;
+  --ok: #35c46b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 24px 64px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+header h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.phase-badge {
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2px 10px;
+}
+
+.step {
+  margin-top: 24px;
+}
+
+.step h2 {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input,
+select {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+.hint,
+.progress,
+.error {
+  font-size: 13px;
+  margin: 8px 0 0;
+}
+
+.hint {
+  color: var(--muted);
+}
+
+.error {
+  color: var(--warn);
+}
+
+/* 分类看板 */
+.board-toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.board-columns {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.category-col {
+  min-width: 220px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.category-col.over {
+  border-color: var(--accent);
+}
+
+.category-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.category-head .del {
+  background: transparent;
+  color: var(--muted);
+  padding: 0 6px;
+}
+
+.file-chip {
+  background: #232734;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  cursor: grab;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 表格 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th,
+td {
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  text-align: left;
+}
+
+th {
+  background: var(--panel);
+  color: var(--muted);
+}
+
+.row-warn {
+  background: rgba(229, 83, 61, 0.08);
+}
+
+.cell-warn {
+  color: var(--warn);
+  font-weight: 600;
+}
+
+/* 图表网格 */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 16px;
+}
+
+.dashboard-summary {
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* 异常剔除控件 */
+.anomaly-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 16px;
+  font-size: 14px;
+}
+
+.anomaly-report {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.drilldown-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.export-panel button {
+  margin-right: 8px;
+}
+
+/* 分组维度选择 */
+.groupby-selector {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.groupby-selector label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text);
+}
+
+/* 透视表 */
+.pivot-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.pivot-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.pivot-hint {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.pivot-table td.cell-best {
+  background: rgba(53, 196, 107, 0.18);
+  color: var(--ok);
+  font-weight: 600;
+}
+
+.pivot-table td.cell-worst {
+  background: rgba(229, 83, 61, 0.15);
+  color: var(--warn);
+}
+
+/* 逐文件表 / 图表控制 */
+.case-table {
+  overflow-x: auto;
+}
+
+.dashboard-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.dashboard-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* Dashboard 说明与调用树 */
+.dashboard-note {
+  font-size: 13px;
+  color: var(--muted);
+  background: rgba(79, 140, 255, 0.08);
+  border-left: 3px solid var(--accent);
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin: 8px 0 16px;
+}
+
+.flame-wrap,
+.tree-wrap {
+  margin-top: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.calltree-table {
+  overflow-x: auto;
+}
+
+.calltree-table td.self-col,
+.calltree-table th.self-col {
+  color: var(--warn);
+  font-weight: 600;
+}
+
+.tree-toggle {
+  background: transparent;
+  color: var(--muted);
+  border: none;
+  padding: 0 6px 0 0;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.tree-leaf {
+  color: var(--border);
+  padding: 0 6px 0 0;
+}
+
+/* 对比视图 模式切换 */
+.compare-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.mode-tabs {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.mode-tabs button {
+  background: var(--panel);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.mode-tabs button.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.compare-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* 帧离群剔除开关 */
+.frame-outlier-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 12px;
+  font-size: 14px;
+}
+
+.removed-badge {
+  color: var(--warn);
+  font-size: 11px;
+}
+
+/* 分组对比指标选择 */
+.group-metric-picker {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.group-metric-picker label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.group-compare-view > div {
+  margin-bottom: 20px;
+}
+
+/* 弹窗（点击柱子看原始数据） */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: min(820px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  padding: 16px 20px;
+}
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-head button {
+  background: transparent;
+  color: var(--muted);
+  font-size: 20px;
+  padding: 0 8px;
+}
+
+.modal-summary {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.modal-summary b {
+  color: var(--text);
+}
+
+.modal-note {
+  color: var(--warn);
+  font-size: 13px;
+}
+
+.modal-raw {
+  margin-top: 12px;
+}
+
+.outlier-tag {
+  color: var(--warn);
+}
+
+.show-outliers {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 4px 0 8px;
+}
+
+/* 自定义分类规则面板 */
+.classifier-config {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.classifier-config summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.cc-modes {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.cc-modes label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.cc-regex {
+  margin-bottom: 10px;
+}
+
+.cc-preview {
+  max-height: 260px;
+  overflow: auto;
+  margin: 8px 0;
+}
+
+.cc-preview-head {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
